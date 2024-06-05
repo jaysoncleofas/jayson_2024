@@ -9,6 +9,7 @@ use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
+use Spatie\ResponseCache\Facades\ResponseCache;
 use Spatie\Valuestore\Valuestore;
 
 class GeneralSettings extends Page implements HasForms
@@ -87,6 +88,8 @@ class GeneralSettings extends Page implements HasForms
         $settings = Valuestore::make(storage_path('app/settings.json'));
 
         $settings->put($this->form->getState());
+        
+        ResponseCache::clear();
 
         Notification::make()
             ->title('Saved')
