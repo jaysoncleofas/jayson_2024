@@ -151,7 +151,7 @@
           errorMessage.innerHTML = response.message
           errorMessage.classList.remove('hidden')
         }
-        submitBtn.textContent = 'Message'
+        submitBtn.textContent = 'Submit'
       })
     })
   </script>
