@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ContactMessage extends Notification implements ShouldQueue
+class Contact extends Notification
 {
     use Queueable;
 
@@ -39,9 +39,7 @@ class ContactMessage extends Notification implements ShouldQueue
         return (new MailMessage)
             ->line("From: {$this->name}")
             ->line("Email: {$this->email}")
-            ->line("Message: {$this->message}")
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->line("Message: {$this->message}");
     }
 
     /**
