@@ -32,6 +32,7 @@ class GeneralSettings extends Page implements HasForms
         'heroSubtitle',
         'githubUrl',
         'linkedinUrl',
+        'email',
     ];
 
     public function mount(): void
@@ -61,6 +62,8 @@ class GeneralSettings extends Page implements HasForms
                                     Components\MarkdownEditor::make('siteDescription')
                                         ->columnSpan('full'),
                                     Components\FileUpload::make('ogImage')->image()
+                                        ->columnSpan('full'),
+                                    Components\TextInput::make('email')
                                         ->columnSpan('full'),
                                     Components\FileUpload::make('logo')->image()
                                         ->columnSpan('full'),

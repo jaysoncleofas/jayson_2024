@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationGroup;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,5 +35,10 @@ class AppServiceProvider extends ServiceProvider
                      ->label('Account'),
             ]);
         });
+
+        RateLimiter::for(
+            'send',
+            fn (Request $request) => Limit::perMinute(3)->by($request->ip())
+        );
     }
 }

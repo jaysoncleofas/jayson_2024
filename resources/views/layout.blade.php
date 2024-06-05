@@ -113,5 +113,47 @@
       </footer>
     </div>
   </div>
+  <script>
+    const form = document.getElementById('js-form')
+    const submitBtn = document.getElementById('submit-button')
+    const processing = false
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+      let formData = new FormData(e.target)
+      const successMessage = document.getElementById('success-text-message')
+      const errorMessage = document.getElementById('error-text-message')
+      const errorTexts = document.querySelectorAll('.error-text')
+      errorTexts.forEach(el => el.classList.add('hidden'))
+      successMessage.classList.add('hidden')
+      errorMessage.classList.add('hidden')
+      submitBtn.textContent = 'Sending...'
+      fetch('/contact', {
+        method: `POST`,
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: formData
+      })
+      .then(response => response.json())
+      .then((response) => {
+        if (! response.success && response.errors) {
+          for (field in response.errors) {
+            let input = document.getElementById(`error-${field}`)
+            if (input) {
+              input.textContent = response.errors[field]
+              input.classList.remove('hidden')
+            }
+          }
+        } else if (response.success) {
+          successMessage.classList.remove('hidden')
+          form.reset()
+        } else {
+          errorMessage.innerHTML = response.message
+          errorMessage.classList.remove('hidden')
+        }
+        submitBtn.textContent = 'Message'
+      })
+    })
+  </script>
 </body>
 </html>
