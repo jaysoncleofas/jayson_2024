@@ -34,6 +34,7 @@ class GeneralSettings extends Page implements HasForms
         'githubUrl',
         'linkedinUrl',
         'email',
+        'cv',
     ];
 
     public function mount(): void
@@ -59,23 +60,26 @@ class GeneralSettings extends Page implements HasForms
                             Components\Grid::make(2)
                                 ->schema([
                                     Components\TextInput::make('siteTitle')
-                                        ->default('Status Update'),
+                                        ->default('Status Update')
+                                        ->columnSpanFull(),
                                     Components\MarkdownEditor::make('siteDescription')
-                                        ->columnSpan('full'),
+                                        ->columnSpanFull(),
                                     Components\FileUpload::make('ogImage')->image()
-                                        ->columnSpan('full'),
+                                        ->columnSpanFull(),
                                     Components\TextInput::make('email')
-                                        ->columnSpan('full'),
+                                        ->columnSpanFull(),
                                     Components\FileUpload::make('logo')->image()
-                                        ->columnSpan('full'),
+                                        ->columnSpanFull(),
                                     Components\TextInput::make('heroTitle')
-                                        ->columnSpan('full'),
+                                        ->columnSpanFull(),
                                     Components\Textarea::make('heroSubtitle')
-                                        ->columnSpan('full'),
+                                        ->columnSpanFull(),
                                     Components\TextInput::make('githubUrl')
-                                        ->columnSpan('full'),
+                                        ->columnSpanFull(),
                                     Components\TextInput::make('linkedinUrl')
-                                        ->columnSpan('full'),
+                                        ->columnSpanFull(),
+                                    Components\FileUpload::make('cv')
+                                        ->columnSpanFull(),
                                 ])
                         ]),
                 ])

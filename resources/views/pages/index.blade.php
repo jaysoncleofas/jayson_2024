@@ -1,3 +1,12 @@
+@php
+
+  use App\Models\Work;
+  use Carbon\Carbon;
+
+  $works = Work::all();
+
+@endphp
+
 @extends('layout')
 
 @section('title', '')
@@ -90,19 +99,31 @@
                 <span class="ml-3">Work</span>
               </h2>
               <ol class="mt-6 space-y-4">
-                <li class="flex gap-4">
-                  <div class="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0"><img alt="" loading="lazy" width="32" height="32" decoding="async" data-nimg="1" class="h-7 w-7" style="color:transparent" src="/_next/static/media/planetaria.ecd81ade.svg"></div>
-                  <dl class="flex flex-auto flex-wrap gap-x-2">
-                    <dt class="sr-only">Company</dt>
-                    <dd class="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">Scrubbed.net, LLC</dd>
-                    <dt class="sr-only">Senior Software Engineer</dt>
-                    <dd class="text-xs text-zinc-500 dark:text-zinc-400">Senior Software Engineer</dd>
-                    <dt class="sr-only">Date</dt>
-                    <dd class="ml-auto text-xs text-zinc-400 dark:text-zinc-500" aria-label="2020 until Present"><time datetime="2020">2020</time> <span aria-hidden="true">—</span> <time datetime="2024">Present</time></dd>
-                  </dl>
-                </li>
+                @foreach ($works as $work)
+                  @php
+                    $startDate = Carbon::parse($work->start_date);
+                    $endDate = $work->end_date ? Carbon::parse($work->end_date) : Carbon::now();
+                  @endphp
+                  <li class="flex gap-4">
+                    <div class="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 ring-1 ring-zinc-900/5 dark:border dark:border-zinc-700/50 dark:bg-zinc-800 dark:ring-0">
+                      <img alt="" loading="lazy" width="32" height="32" decoding="async" data-nimg="1" class="h-7 w-7" style="color:transparent" src="{{ '/storage/'.$work->photo }}">
+                    </div>
+                    <dl class="flex flex-auto flex-wrap gap-x-2">
+                      <dt class="sr-only">Company</dt>
+                      <dd class="w-full flex-none text-sm font-medium text-zinc-900 dark:text-zinc-100">{{ $work->company }}</dd>
+                      <dt class="sr-only">{{ $work->company }}</dt>
+                      <dd class="text-xs text-zinc-500 dark:text-zinc-400">{{ $work->title }}</dd>
+                      <dt class="sr-only">Date</dt>
+                      <dd class="ml-auto text-xs text-zinc-400 dark:text-zinc-500" aria-label="{{ $startDate->format('Y') }} until Present">
+                        <time datetime="{{ $startDate->format('Y') }}">{{ $startDate->format('Y') }}</time>
+                        <span aria-hidden="true">—</span>
+                        <time datetime="{{ $endDate->format('Y') }}">{{ $work->end_date ? $endDate->format('Y') : 'Present' }}</time>
+                      </dd>
+                    </dl>
+                  </li>
+                @endforeach
               </ol>
-              <a class="inline-flex items-center gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none bg-zinc-50 font-medium text-zinc-900 hover:bg-zinc-100 active:bg-zinc-100 active:text-zinc-900/60 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:active:bg-zinc-800/50 dark:active:text-zinc-50/70 group mt-6 w-full" href="#">
+              <a href="{{ '/storage/'.get_setting('cv') }}" download="" class="inline-flex items-center gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none bg-zinc-50 font-medium text-zinc-900 hover:bg-zinc-100 active:bg-zinc-100 active:text-zinc-900/60 dark:bg-zinc-800/50 dark:text-zinc-300 dark:hover:bg-zinc-800 dark:hover:text-zinc-50 dark:active:bg-zinc-800/50 dark:active:text-zinc-50/70 group mt-6 w-full">
                 Download CV
                 <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="h-4 w-4 stroke-zinc-400 transition group-active:stroke-zinc-600 dark:group-hover:stroke-zinc-50 dark:group-active:stroke-zinc-50">
                   <path d="M4.75 8.75 8 12.25m0 0 3.25-3.5M8 12.25v-8.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -119,7 +140,7 @@
                   <path d="M2.75 7.75a3 3 0 0 1 3-3h12.5a3 3 0 0 1 3 3v8.5a3 3 0 0 1-3 3H5.75a3 3 0 0 1-3-3v-8.5Z" class="fill-zinc-100 stroke-zinc-400 dark:fill-zinc-100/10 dark:stroke-zinc-500"></path>
                   <path d="m4 6 6.024 5.479a2.915 2.915 0 0 0 3.952 0L20 6" class="stroke-zinc-400 dark:stroke-zinc-500"></path>
                 </svg>
-                <span class="ml-3">Contact me</span>
+                <span class="ml-3">Contact</span>
               </h2>
               <p class="mt-2 text-sm text-zinc-600 dark:text-zinc-400">I've love to work with you.</p>
 
