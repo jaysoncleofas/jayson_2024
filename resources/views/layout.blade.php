@@ -19,9 +19,7 @@
                 <div class="top-[var(--avatar-top,theme(spacing.3))] w-full" style="position:var(--header-inner-position)">
                   <div class="relative">
                     <div class="absolute left-0 top-3 origin-left transition-opacity h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10" style="opacity:var(--avatar-border-opacity, 0);transform:var(--avatar-border-transform)"></div>
-                    <a aria-label="Home" class="block h-16 w-16 origin-left pointer-events-auto" style="transform:var(--avatar-image-transform)" href="/">
-                      <img srcset="{{ '/storage/'.get_setting('logo') }}" alt="{{ get_setting('siteTitle') }}" fetchpriority="high" width="512" height="512" decoding="async" data-nimg="1" class="rounded-full bg-zinc-100 object-cover dark:bg-zinc-800 h-16 w-16" style="color:transparent" sizes="4rem">
-                    </a>
+                    
                   </div>
                 </div>
               </div>
@@ -45,25 +43,6 @@
                         </button>
                       </div>
                       <div hidden="" style="position:fixed;top:1px;left:1px;width:1px;height:0;padding:0;margin:-1px;overflow:hidden;clip:rect(0, 0, 0, 0);white-space:nowrap;border-width:0;display:none"></div>
-                      <nav class="pointer-events-auto hidden md:block">
-                        <ul class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
-                          <li>
-                            <a class="relative block px-3 py-2 transition hover:text-teal-500 dark:hover:text-teal-400" href="/">Home</a>
-                          </li>
-                          {{-- <li>
-                            <a class="relative block px-3 py-2 transition hover:text-teal-500 dark:hover:text-teal-400" href="/articles">Articles</a>
-                          </li> --}}
-                          <li>
-                            <a class="relative block px-3 py-2 transition hover:text-teal-500 dark:hover:text-teal-400" href="/projects">Projects</a>
-                          </li>
-                          {{-- <li>
-                            <a class="relative block px-3 py-2 transition hover:text-teal-500 dark:hover:text-teal-400" href="/speaking">Speaking</a>
-                          </li>
-                          <li>
-                            <a class="relative block px-3 py-2 transition hover:text-teal-500 dark:hover:text-teal-400" href="/uses">Uses</a>
-                          </li> --}}
-                        </ul>
-                      </nav>
                     </div>
                     <div class="flex justify-end md:flex-1">
                       <div class="pointer-events-auto">
@@ -97,13 +76,7 @@
               <div class="relative px-4 sm:px-8 lg:px-12">
                 <div class="mx-auto max-w-2xl lg:max-w-5xl">
                   <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
-                    <div class="flex flex-wrap justify-center gap-x-6 gap-y-1 text-sm font-medium text-zinc-800 dark:text-zinc-200">
-                      <a class="transition hover:text-teal-500 dark:hover:text-teal-400" href="/about">Home</a>
-                      <a class="transition hover:text-teal-500 dark:hover:text-teal-400" href="/projects">Projects</a>
-                      {{-- <a class="transition hover:text-teal-500 dark:hover:text-teal-400" href="/speaking">Speaking</a>
-                      <a class="transition hover:text-teal-500 dark:hover:text-teal-400" href="/uses">Uses</a> --}}
-                    </div>
-                    <p class="text-sm text-zinc-400 dark:text-zinc-500">© <!-- -->2024<!-- --> Jayson. All rights reserved.</p>
+                    <p class="text-sm text-zinc-400 dark:text-zinc-500">© <!-- -->2022<!-- --> Jayson. All rights reserved.</p>
                   </div>
                 </div>
               </div>
@@ -113,47 +86,5 @@
       </footer>
     </div>
   </div>
-  <script>
-    const form = document.getElementById('js-form')
-    const submitBtn = document.getElementById('submit-button')
-    const processing = false
-    form.addEventListener('submit', (e) => {
-      e.preventDefault()
-      let formData = new FormData(e.target)
-      const successMessage = document.getElementById('success-text-message')
-      const errorMessage = document.getElementById('error-text-message')
-      const errorTexts = document.querySelectorAll('.error-text')
-      errorTexts.forEach(el => el.classList.add('hidden'))
-      successMessage.classList.add('hidden')
-      errorMessage.classList.add('hidden')
-      submitBtn.textContent = 'Sending...'
-      fetch('/contact', {
-        method: `POST`,
-        headers: {
-          'Accept': 'application/json'
-        },
-        body: formData
-      })
-      .then(response => response.json())
-      .then((response) => {
-        if (! response.success && response.errors) {
-          for (field in response.errors) {
-            let input = document.getElementById(`error-${field}`)
-            if (input) {
-              input.textContent = response.errors[field]
-              input.classList.remove('hidden')
-            }
-          }
-        } else if (response.success) {
-          successMessage.classList.remove('hidden')
-          form.reset()
-        } else {
-          errorMessage.innerHTML = response.message
-          errorMessage.classList.remove('hidden')
-        }
-        submitBtn.textContent = 'Submit'
-      })
-    })
-  </script>
 </body>
 </html>
