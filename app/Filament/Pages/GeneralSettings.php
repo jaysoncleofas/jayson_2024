@@ -35,6 +35,7 @@ class GeneralSettings extends Page implements HasForms
         'linkedinUrl',
         'email',
         'cv',
+        'googleAnalyticsId'
     ];
 
     public function mount(): void
@@ -79,6 +80,8 @@ class GeneralSettings extends Page implements HasForms
                                     Components\TextInput::make('linkedinUrl')
                                         ->columnSpanFull(),
                                     Components\FileUpload::make('cv')
+                                        ->columnSpanFull(),
+                                    Components\TextInput::make('googleAnalyticsId')
                                         ->columnSpanFull(),
                                 ])
                         ]),

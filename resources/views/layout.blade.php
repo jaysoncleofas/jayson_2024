@@ -4,11 +4,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@yield('title') {{ get_setting('siteTitle') }}</title>
+  @if (! empty(get_setting('googleAnalyticsId')))
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ get_setting('googleAnalyticsId') }}"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', '{{ get_setting('googleAnalyticsId') }}');
+
+    </script>
+  @endif
   @vite('resources/css/app.css')
 </head>
 <body>
   <div class="flex w-full">
-    <div class="fixed inset-0 flex justify-center sm:px-8"><div class="flex w-full max-w-7xl lg:px-8"><div class="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20"></div></div></div>
     <div class="relative flex w-full flex-col">      
       <header class="pointer-events-none relative z-50 flex flex-none flex-col" style="height:var(--header-height);margin-bottom:var(--header-mb)">
         <div class="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]"></div>
@@ -69,9 +83,7 @@
             <div class="border-t border-zinc-100 pb-16 pt-10 dark:border-zinc-700/40">
               <div class="relative px-4 sm:px-8 lg:px-12">
                 <div class="mx-auto max-w-2xl lg:max-w-5xl">
-                  <div class="flex flex-col items-center justify-between gap-6 sm:flex-row">
-                    <p class="text-sm text-zinc-400 dark:text-zinc-500">© <!-- -->2022<!-- --> Jayson. All rights reserved.</p>
-                  </div>
+                  <p class="text-sm text-center text-zinc-400 dark:text-zinc-500">© <!-- -->2022<!-- --> Jayson.</p>
                 </div>
               </div>
             </div>
